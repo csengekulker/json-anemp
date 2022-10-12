@@ -20,37 +20,50 @@
     <div class="container">
         <h1>Dolgozók adatai</h1>
 
-        <label for="name">Új név:</label>
-        <input type="text" id="name">
-        <button id="addButton" class="btn btn-primary">Hozzáad</button>
-
-        <table id="empTable" class="table table-striped mt-2">
-        </table>
-
-
-
 
         <!-- Button trigger modal -->
-<button 
-type="button" 
-class="btn btn-primary" 
-data-bs-toggle="modal" 
-data-bs-target="#exampleModal">
-    Launch demo modal
+<button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#addModal">
+    Új dolgozó felvétele
   </button>
+
+  <h2>Dolgozók</h2>
   
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <!-- addModal -->
+  <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Új dolgozó felvétele</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+ 
+          <label for="name">Név:</label>
+          <input type="text" id="name">
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezárás</button>
+          <button type="button" id="addButton" class="btn btn-primary" data-bs-dismiss="modal">Hozzáadás</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+    <table id="empTable" class="table table-striped mt-2">
+    </table>
+  
+  <!-- editModal -->
+  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Adatok szerkesztése</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           
-
-
 
             <div class="editor">
                 <label for="edited_id">Id:</label>
@@ -64,14 +77,31 @@ data-bs-target="#exampleModal">
 
         </div>
         <div class="modal-footer">
-          <button type="button"  id="saveButton" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezárás</button>
+          <button type="button" id="saveButton" data-bs-dismiss="modal"  class="btn btn-primary">Változtatások mentése</button>
         </div>
       </div>
     </div>
   </div>
 
+
+  <!-- confirmDelModal -->
+  <div class="modal fade" id="confirmDelModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Biztosan törölni szeretné?</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" id="confirmDelButton" class="btn btn-danger" data-bs-dismiss="modal">Dolgozó törlése</button>
+        </div>
+      </div>
     </div>
+  </div>
+
+</div>
 
 
 </body>

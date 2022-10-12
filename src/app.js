@@ -4,6 +4,7 @@ const empName = document.querySelector("#name")
 const editor_id = document.querySelector('#edited_id')
 const editor_name = document.querySelector('#edited_name')
 const saveButton = document.querySelector('#saveButton')
+const confirmDelButton = document.querySelector('#confirmDelButton')
 var tbody = document.createElement('tbody')
 empTable.appendChild(tbody)
 
@@ -58,17 +59,26 @@ function makeDelButton(id) {
     delBtn.classList = 'btn btn-danger'
     delBtn.textContent = 'Törlés'
 
-    delBtn.addEventListener('click', ()=> {
-        let answer = confirm('Biztosan törlöd?')
-        if (answer) {
-            deleteEmployee(id)
-            actualTr = delBtn.parentElement.parentElement
-            actualTr.parentNode.removeChild(actualTr)
-        }        
-    })
+    delBtn.setAttribute('data-bs-toggle', 'modal')
+    delBtn.setAttribute('data-bs-target', '#confirmDelModal')
+
+    delBtn.addEventListener('click', () => console.log("delBtnre katt"))
+
+
+    console.log("makeDelButon");
+
+
 
     return delBtn
 }
+
+confirmDelButton.addEventListener('click', ()=> {
+
+    deleteEmployee(id)
+    // actualTr = delBtn.parentElement.parentElement
+    // actualTr.parentNode.removeChild(actualTr)
+
+})
 
 addButton.addEventListener('click', () => {
     addEmployee()
@@ -90,7 +100,6 @@ function addEmployee() {
     })
     .then(response => response.json())
     .then(result => {
-        console.log(result)
         empName.value = ''
         addEmployeeToTable(result)
     })
@@ -121,13 +130,15 @@ function addEmployeeToTable(employee) {
 function deleteEmployee(id) {
     let endpoint = 'employees';
     let url = `${host}/${endpoint}/${id}`
-    fetch(url, {
-        method: 'delete'
-    })
-    .then(response => response.json())
-    .then(result => {
-        console.log(result)
-    })
+
+    console.log("deleteEmployee");
+    // fetch(url, {
+    //     method: 'delete'
+    // })
+    // .then(response => response.json())
+    // .then(result => {
+    //     console.log(result)
+    // })
 }
 
 function makeEditButton(employee) {
@@ -138,6 +149,8 @@ function makeEditButton(employee) {
     editBtn.textContent = 'Módosítás'
     editBtn.classList = 'btn btn-warning ms-3'
 
+    editBtn.setAttribute('data-bs-toggle', 'modal')
+    editBtn.setAttribute('data-bs-target', '#editModal')
     editBtn.setAttribute('data-id', employee.id)
     editBtn.setAttribute('data-name', employee.name)
 

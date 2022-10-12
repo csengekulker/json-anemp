@@ -1,0 +1,6 @@
+
+TODO: feliratok helyett ikonok
+TODO: torles megerositese ne torolje ki az osszes sort 
+    5szor fut le a makedelbutton ezert 5szor fut le A confirmdeletion is, akarmelyikre ha kattintunk 
+    es megerositjuk annyit torol ahany record van demiert.... 
+TODO: editor save gomb mukodjon 
