@@ -7,7 +7,7 @@ const saveButton = document.querySelector('#saveButton')
 var tbody = document.createElement('tbody')
 empTable.appendChild(tbody)
 
-let actualTr;
+let actualTr = null;
 
 const host = 'http://localhost:3000';
 
@@ -145,15 +145,34 @@ function makeEditButton(employee) {
     editBtn.addEventListener('click', () => {
         editor_id.value = editBtn.dataset.id
         editor_name.value = editBtn.dataset.name
+        actualTr = editBtn.parentElement.parentElement
     })
 
     return editBtn
 }
 
 function updateEmployee() {
-    
+
+    let endpoint = `employees/${editor_id.value}`
+
+    let url = `${host}/${endpoint}`
+
+    fetch(url, {
+        method: 'put',
+        body: JSON.stringify({
+            id: editor_id.value,
+            name: editor_name.value
+    }),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(res => res.json())
+    .then(res => console.log(res))
 }
 
 saveButton.addEventListener('click', () => {
+    
+    actualTr.childNodes[1].textContent = editor_name.value
+
     updateEmployee()
 })
