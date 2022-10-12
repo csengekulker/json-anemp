@@ -175,4 +175,7 @@ saveButton.addEventListener('click', () => {
     actualTr.childNodes[1].textContent = editor_name.value
 
     updateEmployee()
+
+    editor_id.value = ''
+    editor_name.value = ''
 })
