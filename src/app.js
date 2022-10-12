@@ -1,82 +1,86 @@
-const addButton = document.querySelector("#addButton");
-const empTable = document.querySelector("#empTable");
-const empName = document.querySelector("#name");
+const addButton = document.querySelector("#addButton")
+const empTable = document.querySelector("#empTable")
+const empName = document.querySelector("#name")
 const editor_id = document.querySelector('#edited_id')
 const editor_name = document.querySelector('#edited_name')
 const saveButton = document.querySelector('#saveButton')
-var tbody = document.createElement('tbody');
-empTable.appendChild(tbody);
+var tbody = document.createElement('tbody')
+empTable.appendChild(tbody)
+
+let actualTr;
 
 const host = 'http://localhost:3000';
 
-
 (()=>{
-   getEmployees();
-})();
+   getEmployees()
+})()
 
 function getEmployees() {
-    let endpoint = 'employees';
+    let endpoint = 'employees'
     let url = `${host}/${endpoint}`
     fetch(url)
     .then( response => response.json())
     .then( result => {
-        renderTable(result);
+        renderTable(result)
     })
     .catch(error => {
-        console.log('Hiba! A lekérdezés sikertelen!');
-        console.log(error);
-    });    
+        console.log('Hiba! A lekérdezés sikertelen!')
+        console.log(error)
+    })
 
 }
 
 function renderTable(employees) {
-    tbody.innerHTML = '';
+    tbody.innerHTML = ''
     employees.forEach( employee => {
-        let tr = document.createElement('tr');
-        let tdId = document.createElement('td');
-        let tdName = document.createElement('td');
-        let tdButton = document.createElement('td');
-        let delBtn = makeDelButton(employee.id);
-        let editBtn = makeEditButton(employee);
+        let tr = document.createElement('tr')
+        let tdId = document.createElement('td')
+        let tdName = document.createElement('td')
+        let tdButton = document.createElement('td')
+        let delBtn = makeDelButton(employee.id)
+        let editBtn = makeEditButton(employee)
 
-        tr.appendChild(tdId);
-        tr.appendChild(tdName);
-        tr.appendChild(tdButton);
-        tdButton.appendChild(delBtn);
-        tdButton.appendChild(editBtn);
-        tbody.appendChild(tr);
+        tr.appendChild(tdId)
+        tr.appendChild(tdName)
+        tr.appendChild(tdButton)
+        tdButton.appendChild(delBtn)
+        tdButton.appendChild(editBtn)
+        tbody.appendChild(tr)
     
-        tdId.textContent = employee.id;
-        tdName.textContent = employee.name;        
-    });
+        tdId.textContent = employee.id
+        tdName.textContent = employee.name  
+    })
 }
 
 function makeDelButton(id) {
-    let delBtn = document.createElement('button');
-    delBtn.classList = 'btn btn-danger ms-0'
-    delBtn.textContent = 'Törlés';
+
+    let delBtn = document.createElement('button')
+    delBtn.classList = 'btn btn-danger'
+    delBtn.textContent = 'Törlés'
+
     delBtn.addEventListener('click', ()=> {
-        let answer = confirm('Biztosan törlöd?');
+        let answer = confirm('Biztosan törlöd?')
         if (answer) {
-            deleteEmployee(id);
-            let actualTr = delBtn.parentElement.parentElement;
-            actualTr.parentNode.removeChild(actualTr);
+            deleteEmployee(id)
+            actualTr = delBtn.parentElement.parentElement
+            actualTr.parentNode.removeChild(actualTr)
         }        
-    });
-    return delBtn;
+    })
+
+    return delBtn
 }
 
 addButton.addEventListener('click', () => {
-    addEmployee();
+    addEmployee()
 
-});
+})
 
 function addEmployee() {
-    let endpoint = 'employees';
+    let endpoint = 'employees'
     let url = `${host}/${endpoint}`   
     let employee = {
         name: empName.value
-    };
+    }
     fetch(url, {
         method: 'post',
         body: JSON.stringify(employee),
@@ -86,34 +90,31 @@ function addEmployee() {
     })
     .then(response => response.json())
     .then(result => {
-        console.log(result);
-        empName.value = '';
-        addEmployeeToTable(result);
-    });
+        console.log(result)
+        empName.value = ''
+        addEmployeeToTable(result)
+    })
 
 }
 
 function addEmployeeToTable(employee) {
-    let tr = document.createElement('tr');
-    let tdId = document.createElement('td');
-    let tdName = document.createElement('td');
-    let tdDel = document.createElement('td');
-    let tdEdit = document.createElement('td');
+    let tr = document.createElement('tr')
+    let tdId = document.createElement('td')
+    let tdName = document.createElement('td')
+    let tdButtons = document.createElement('td')
 
- 
     tdId.textContent = employee.id
     tdName.textContent = employee.name
 
     tr.appendChild(tdId)
     tr.appendChild(tdName)
-    tr.appendChild(tdDel)
-    tr.appendChild(tdEdit)
+    tr.appendChild(tdButtons)
 
     let delButton = makeDelButton(employee.id)
     let editButton = makeEditButton(employee)
 
-    tdDel.appendChild(delButton)
-    tdDel.appendChild(editButton)
+    tdButtons.appendChild(delButton)
+    tdButtons.appendChild(editButton)
     tbody.appendChild(tr)
 }
 
@@ -141,7 +142,7 @@ function makeEditButton(employee) {
     editBtn.setAttribute('data-name', employee.name)
 
 
-    editBtn.addEventListener('click', ()=> {
+    editBtn.addEventListener('click', () => {
         editor_id.value = editBtn.dataset.id
         editor_name.value = editBtn.dataset.name
     })
@@ -149,6 +150,10 @@ function makeEditButton(employee) {
     return editBtn
 }
 
-function editEmployee() {
-
+function updateEmployee() {
+    
 }
+
+saveButton.addEventListener('click', () => {
+    updateEmployee()
+})
