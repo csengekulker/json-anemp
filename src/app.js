@@ -65,20 +65,13 @@ function makeDelButton(id) {
     delBtn.addEventListener('click', () => console.log("delBtnre katt"))
 
 
+
     console.log("makeDelButon");
-
-
 
     return delBtn
 }
 
-confirmDelButton.addEventListener('click', ()=> {
 
-    deleteEmployee(id)
-    // actualTr = delBtn.parentElement.parentElement
-    // actualTr.parentNode.removeChild(actualTr)
-
-})
 
 addButton.addEventListener('click', () => {
     addEmployee()
@@ -191,4 +184,16 @@ saveButton.addEventListener('click', () => {
 
     editor_id.value = ''
     editor_name.value = ''
+})
+
+
+confirmDelButton.addEventListener('click', (e)=> {
+
+    console.log("confirmdel")
+    console.log(actualTr)
+
+    // deleteEmployee(id)
+    // actualTr = delBtn.parentElement.parentElement
+    // actualTr.parentNode.removeChild(actualTr)
+
 })
